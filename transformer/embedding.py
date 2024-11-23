@@ -1,31 +1,6 @@
 import torch.nn as nn
 import math
 import torch
-
-class Embedding(nn.Module):
-    def __init__(self, vocab_size, d_model):
-        super(Embedding, self).__init__()
-        self.lut = nn.Embedding(vocab_size, d_model)
-        self.d_model = d_model
-    
-    def forward(self, x):
-        return self.lut(x) * math.sqrt(self.d_model) # [batch_size, seq_len, d_model]
-
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, seq_len_max=5000, dropout=0.1):
-        super(PositionalEncoding, self).__init__()
-        self.dropout = nn.Dropout(p=dropout)
-        position_ids = torch.arange(0, seq_len_max).unsqueeze(-1) # [5000,1]
-        div_part = torch.exp(- torch.arange(0, d_model, 2) * math.log(10000) / d_model)
-        pe = torch.zeros(seq_len_max, d_model)
-        pe[:, 0::2] = torch.sin(position_ids * div_part)
-        pe[:, 1::2] = torch.cos(position_ids * div_part) # [seq_len_max, d_model]
-        pe = pe.unsqueeze(0)
-        self.register_buffer('pe', pe)
-    
-    def forward(self, x): # [batch_size, seq_len, d_model]
-        x = x + self.pe[:, :x.size()[1], :]
-        return self.dropout(x)
     
 class Embedding(nn.Module):
     def __init__(self, vocab_size, d_model):
@@ -39,7 +14,7 @@ class Embedding(nn.Module):
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, seq_len_max=5000, dropout=0.1):
         super(PositionalEncoding, self).__init__()
-        self.dropout = nn.Dropout(d=dropout)
+        self.dropout = nn.Dropout(p=dropout)
         position_ids = torch.arange(0, seq_len_max).unsqueeze(-1)
         div_term = torch.exp(-torch.arange(0, d_model, 2) * math.log(10000) / d_model)
         pe = torch.zeros(seq_len_max, d_model)
@@ -50,7 +25,7 @@ class PositionalEncoding(nn.Module):
     
     def forward(self, x):
         x = x + self.pe[:, :x.size()[1], :]
-        return self.dropout(x)
+        return x, self.dropout(x)
     
 class RotaryPositionalEncoding(nn.Module):
     def __init__(self, d_model, base=10000):
@@ -75,7 +50,7 @@ def rotate_half(x):
     x2 = x[..., x.shape[-1]//2:]
     return torch.cat((-x2, x1), dim=-1)
 
-def applu_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1):
+def apply_rotary_pos_emb(q, k, cos, sin, unsqueeze_dim=1):
     """
     Apply rotary positional embedding to the query and key tensors.
 
