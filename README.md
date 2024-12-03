@@ -2,8 +2,7 @@
 **The repository is mainly used to record the path of my lerning of some basic LLM-related knowledge🚀**
 
 ## The Structure of each point being recorded
-
-- What it is？(・∀・？)
+- What it is？(・∀・？)👀
 - Why do we need it? 🤔
 - How to code it? 💻
 - Potential 八股文hhh😀
