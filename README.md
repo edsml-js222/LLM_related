@@ -7,11 +7,11 @@
 - How to code it? 💻
 - Potential 八股文hhh😀
 
-## Already DONE!😊
+## In Progress...⛏️！
 * Transformer structure and their optimized technology
-    * Tokenizer
+    * Tokenizer -- [concepts](transformer/docs/tokenizer.md)
         * BPE (Byte-Pair Encoding) & BBPE (Byte-level Byte)
-    * Normalization
+    * Normalization -- [code](transformer/codes/normalization.py) & [concepts](transformer/docs/normalization.md)
         * Layer Norm (why not Batch Norm)
         * RMSNorm
         * Pre-norm & Post-norm
@@ -35,3 +35,7 @@
 * Agent
 * RAG
 * Deepspeed
+
+## UpdateLog
+[03/12/2024 Mon] Tokenization (concepts)-- ✅ <br>
+[04/12/2024 Tues] Normalization (code & concepts) -- ✅
