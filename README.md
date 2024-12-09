@@ -10,11 +10,11 @@
 ## In Progress...⛏️！
 * Transformer structure and their optimized technology
     * Tokenizer -- [concepts](transformer/docs/tokenizer.md)
-        * BPE (Byte-Pair Encoding) & BBPE (Byte-level Byte)
+        * BPE (Byte-Pair Encoding) & BBPE (Byte-level Byte) -- ✅
     * Normalization -- [code](transformer/codes/normalization.py) & [concepts](transformer/docs/normalization.md)
-        * Layer Norm (why not Batch Norm)
-        * RMSNorm
-        * Pre-norm & Post-norm
+        * Layer Norm (why not Batch Norm) -- ✅
+        * RMSNorm -- ✅
+        * Pre-norm & Post-norm -- ✅
     * Positional Encoding -- [code](transformer/pe.py) & [concepts]()
         * Sinusoidal
         * ALiBi (Attention with Linear Bias)
